@@ -78,7 +78,7 @@ void mouseClicked() {
   slicearray[1]=slicenum;
   slice = join(slicearray,"");
   String path = savePath(slice);
-  crop[i].save(path);
+  //crop[i].save(path);
   imgFile2 = nf((i+1)*skip);
   imgFile[1] = imgFile2;
   img = join(imgFile,"");
