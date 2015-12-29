@@ -6,8 +6,9 @@ Is a nice guy.
 3 - [ ] add in 2.5D option for multiple layers of parallax alignment
 2 - [ ] render farthest left and right frames in red-blue anaglyph for screen viewing
 4 - [ ] unify alignment and interlace sketches
-6 - [ ] depth map?
 5 - [ ] add in entry fields for variables / lenticular types / files
+6 - [ ] depth map?
+7 - [ ] focusing stacking? 
 
 ----------------------------------
 ####Resources
