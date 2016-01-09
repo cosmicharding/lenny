@@ -5,4 +5,4 @@
 - [ ] Updated to be compatible with files of any name. 
 	- Assumes user has sequential naming for files
 - [ ] Updated var names to camel case and to include hint to var type
-- [ ] Simplified export name vars
+- [ ] Simplified export name varsx

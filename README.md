@@ -9,6 +9,7 @@ Is a nice guy.
 - [ ] 5. add in entry fields for variables / lenticular types / files
 - [ ] 6. depth map?
 - [ ] 7. focusing stacking? 
+- [ ] 8. Anaglyph preview 
 
 ----------------------------------
 ####Resources
