@@ -7,12 +7,12 @@ String img;
 PImage imgs[] = new PImage[frames];
 PImage imgsLarge[] = new PImage[frames];
 String imgFile[] = {"data/large/",imgFile2, ".jpg"};
-int opac;
+
 int centermouse;
 int croptopx;
 int croptopy;
 int cropwidth;
-int cropheight;
+
 int value = 0;
 String slicenum ="";
 String slicearray[] = {"data/slice", slicenum, ".tif"};
@@ -41,35 +41,40 @@ void setup() {
 
 void draw() {
   background(0);
+
+  imageMode(CENTER);
   for (int i=0; i < FRAME_COUNT; i++){
-    centermouse = mouseX-width/2;
-    mouse = centermouse*i/(FRAME_COUNT-1)+width/2-imgStack.get(staged[i]).width/2;
-    opac = 255/(i+1);
-    tint(255, opac);  // Display at partial opacity
-    image(imgStack.get(staged[i]), mouse, 0);
-//    filter(INVERT); // helpful?
-    //imgs[i].resize(0,height); //make dynamic with stroke?
-    croptopy=0;
-    cropwidth=0;
-    cropheight= height;
-    if (centermouse>0){
-      croptopx= mouseX- imgStack.get(staged[i]).width/2;
+    pushMatrix();
+      translate(width/2, height/2);
+      int displacementToCenter = mouseX-width/2;
+      //xLoc = (mouseDisplacement * imgNum / spaces between images) + shift to center - image's center 
+      int xLoc = displacementToCenter*i / (FRAME_COUNT-1); // 
+      int opac = 255/(i+1); //why? 
+      tint(255, opac);  // Display at partial opacity
+      image(imgStack.get(staged[i]), xLoc, 0);
+    popMatrix();
+
+    if (displacementToCenter>0){
+      croptopx= mouseX - imgStack.get(staged[i]).width/2;
       cropwidth = ((width/2)+imgStack.get(staged[i]).width/2)-croptopx;
-  }
-    if (centermouse<=0){
+    }
+    if (displacementToCenter<=0){
       croptopx = width/2-imgStack.get(staged[i]).width/2;
       cropwidth = (mouseX+imgStack.get(staged[i]).width/2)-croptopx;
     }
+
+    //Draw masks
+    tint(255,255);
     fill(255);
     noStroke();
     rect(0,0,croptopx, displayHeight);  
     rect(croptopx + cropwidth, 0, displayWidth-(croptopx + cropwidth), displayHeight);  
 
-cropx = croptopx - (i * centermouse/(FRAME_COUNT-1));
-cropx = cropx-(width-imgStack.get(staged[i]).width)/2;
-//crop[i]=imgs[i].get(cropx,croptopy,cropwidth, cropheight);
-cropArray[i] = cropx;
+    cropx = croptopx - (i * displacementToCenter/(FRAME_COUNT-1));
+    cropx = cropx-(width-imgStack.get(staged[i]).width)/2;
+    cropArray[i] = cropx;
   }
+  
 }
 
 
@@ -116,9 +121,13 @@ int[] getActiveImages(int totalImages, int totalFrames){
     int[] stagedImgs = new int[totalFrames]; 
     stagedImgs[0] = 0; 
     stagedImgs[totalFrames-1] = totalImages - 1; 
-    int skip = (totalImages - 2) / totalFrames - 1; //Rounded-down number of images to skip
+    int skip = (totalImages - 2) / (totalFrames - 1); //Rounded-down number of images to skip
     for(int i = 0; i < totalFrames - 2; i++){
       stagedImgs[i+1] = (i + 1) * skip; 
+    }
+    println("Staged images: ");
+    for(int x : stagedImgs){
+      print(x + ", ");
     }
     return stagedImgs;
 
