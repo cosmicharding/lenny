@@ -1,7 +1,7 @@
 # lenny
 Is a nice guy.
 
-###Specs
+###ToDouz
 - [x] 1. make alignment crop at full size
 - [ ] 2. add in 2.5D option for multiple layers of parallax alignment
 - [ ] 3. render farthest left and right frames in red-blue anaglyph for screen viewing
@@ -10,19 +10,10 @@ Is a nice guy.
 - [ ] 6. depth map?
 - [ ] 7. focusing stacking? 
 - [ ] 8. Anaglyph preview 
-
-
-
-	4 unify alignment and interlace sketches
-	√1 make alignment crop at full size
-	3 add in 2.5D option for multiple layers of parallax alignment
-	2 render farthest left and right frames in red-blue anaglyph for screen viewing
-	6 depth map?
-	5 add in entry fields for variables / lenticular types / files
-	√change sketch to load all images and just draw the ones based on offset and adjust
-		make offset & adjust user-controlled
-	find relationship between anaglyph preview disparity in stereo pairs and lenticular 
-	fix image export in click event (goes out of bounds)
+- [ ] 9. Figure out why image exports are turning black after first export in parallaxer
+- [X] 10. change sketch to load all images and just draw the ones based on offset and adjust make offset & adjust user-controlled.
+- [ ] 11. find relationship between anaglyph preview disparity in stereo pairs and lenticular 
+- [X] 12. fix image export in click event (goes out of bounds)
 
 ----------------------------------
 ####Resources

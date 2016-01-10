@@ -10,10 +10,15 @@ To do:
 - [ ] Alphanum sort on names
 - [X] Do not load .DS_Store files
 - [ ] Error handling for invalid image files
+- [ ] Get multiple images
 - [ ] Error handling for missing folders
 - [ ] Warning if low-res images are used
 - [ ] Loading progress bar
 - [ ] Helper functions for getting first / last images
 - [ ] quick preview
+- [X] Throw exception for out of bound get() requests
+- [ ] Check for size consistency across images
+
+
 
  
