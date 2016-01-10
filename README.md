@@ -1,7 +1,7 @@
 # lenny
 Is a nice guy.
 
-###Specs
+###ToDouz
 - [x] 1. make alignment crop at full size
 - [ ] 2. add in 2.5D option for multiple layers of parallax alignment
 - [ ] 3. render farthest left and right frames in red-blue anaglyph for screen viewing
