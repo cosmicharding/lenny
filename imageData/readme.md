@@ -5,6 +5,7 @@ Default folder is "data".
 Contains screen-res array for preview rendering and original-resolution
 images for printing.  
 
+
 To do: 
 - [ ] Alphanum sort on names
 - [X] Do not load .DS_Store files
