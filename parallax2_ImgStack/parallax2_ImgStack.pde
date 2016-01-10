@@ -3,12 +3,14 @@
 String IMAGES_FOLDER = "large"; 
 int FRAME_COUNT = 3;
 
+ImgStack imgStack; 
+int[] staged; 
+
 int centermouse;
 int croptopx;
 int croptopy;
 int cropwidth;
 
-int value = 0;
 String slicenum ="";
 String slicearray[] = {"data/slice", slicenum, ".tif"};
 String slice;
@@ -22,8 +24,7 @@ int cropwidthLargeInt;
 
 
 
-ImgStack imgStack; 
-int[] staged; 
+
 
 void setup() {
   size(displayWidth, displayHeight);
@@ -46,6 +47,8 @@ void draw() {
     popMatrix();
   }
 
+
+  //Draw Masks
   int cropLeft, cropWidth, cropRight; 
   if (mouseX > width/2){
     cropLeft = mouseX - imgStack.width/2;
@@ -57,7 +60,11 @@ void draw() {
     cropWidth = (mouseX+imgStack.width/2)-cropLeft;
   }
 
-  drawMasks();
+  tint(255,255);
+  fill(255);
+  noStroke();
+  rect(0,0,cropLeft, displayHeight); //Left Mask 
+  rect(cropRight, 0, displayWidth, displayHeight);  //Right mask
 
   //cropx = cropLeft - (i * displacementToCenter/(FRAME_COUNT-1));
   //cropx = cropx-(width-imgStack.width)/2;
@@ -67,29 +74,34 @@ void draw() {
 }
 
 
+//Exports fullres on click
 void mouseClicked() {
-  //PGraphic export = 
-//   value=1;
-//   clear();
-//   delay(1000);
-//   for (int i=0; i<frames; i++){ 
-//   slicenum=nf(i+1);
-//   slicearray[1]=slicenum;
-//   slice = join(slicearray,"");
-//   String path = savePath(slice);
-//   //crop[i].save(path);
-//   imgFile2 = nf((i+1)*skip);
-//   imgFile[1] = imgFile2;
-//   img = join(imgFile,"");
-//   imgsLarge[i] = loadImage(img);
-//   cropwidthLarge = (1.0 * cropwidth/imgs[i].width*imgsLarge[i].width);
-//   cropheightLarge = imgsLarge[i].height;
-//   cropArray[i] = cropArray[i] * imgsLarge[i].width/imgs[i].width;
-//   println(cropArray[i]);
-//   cropwidthLargeInt=int(cropwidthLarge);
-//   crop[i]=imgsLarge[i].get(cropArray[i],croptopy,cropwidthLargeInt,cropheightLarge);
-//   crop[i].save(path);
-//   }
+  float scale = imgStack.scale;
+  boolean stackLeansLeft = (mouseX < width/2);
+
+  //Calculated scaled offset values 
+  int xOffset =  Math.round(mouseX-width/2 * scale);
+  int[] xLocs = new int[FRAME_COUNT]; 
+  for(int i = 0; i < FRAME_COUNT; i++){
+    xLocs[i] = xOffset*i / (FRAME_COUNT-1); 
+  }
+  //Calculate export area 
+  //export width is calculated based on the position of the last staged image
+  int exportW = (imgStack.fullWidth - abs(xLocs[FRAME_COUNT-1]));
+  int exportH = imgStack.fullHeight;
+
+  PGraphics exportCanvas = createGraphics(exportW, imgStack.fullHeight);
+  exportCanvas.beginDraw();  
+  exportCanvas.imageMode(CENTER);
+  translate(exportCanvas.width/2, exportCanvas.height/2);
+  for(int i = 0; i < FRAME_COUNT; i++){
+    exportCanvas.background(255);
+    exportCanvas.image(imgStack.getBig(staged[i]), xLocs[i], 0);
+    exportCanvas.save("export_" + i + ".jpg");
+    println("EXPORTED: export_" + i + ".jpg");
+  }
+  exportCanvas.endDraw();
+
 }
 
 
@@ -124,13 +136,4 @@ int[] getActiveImages(int totalImages, int totalFrames){
   } else {
     throw new ArrayIndexOutOfBoundsException( "Unable to render " + totalFrames + " frames from image array of size " + totalImages);
   }
-}
-
-void drawMasks(){
-  //Draw masks
-  tint(255,255);
-  fill(255);
-  noStroke();
-  rect(0,0,cropLeft, displayHeight); //Left Mask 
-  rect(cropRight, 0, displayWidth, displayHeight);  //Right mask
 }

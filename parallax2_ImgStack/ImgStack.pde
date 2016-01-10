@@ -10,8 +10,11 @@ images for printing.
 ----------------------*/
 public class ImgStack {
 	int totalImgs; 
-	int width; //height of SMALL images
+	int width; //width of SMALL images
 	int height; //height of SMALL images
+	int fullWidth; //width of ORIGINAL images
+	int fullHeight; //height of ORIGINAL images
+	float scale;
 
 	ArrayList<PImage> smallImgs; 
 	ArrayList<PImage> fullResImgs; 
@@ -110,6 +113,9 @@ public class ImgStack {
 				}
 		}
 		totalImgs = fullResImgs.size(); 
+
+		this.fullWidth = fullResImgs.get(0).width;
+		this.fullHeight = fullResImgs.get(0).height;
 		println("Images successfully loaded: " + fullResImgs.size());
 	}
 
@@ -123,6 +129,7 @@ public class ImgStack {
 		}
 		this.width = smallImgs.get(0).width;
 		this.height = smallImgs.get(0).height;
+		this.scale = fullHeight / height;
 		println("Low res previews successfully generated. ");
 	}
 }
