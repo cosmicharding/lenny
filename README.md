@@ -11,9 +11,9 @@ Is a nice guy.
 - [ ] 7. focusing stacking? 
 - [ ] 8. Anaglyph preview 
 - [ ] 9. Figure out why image exports are turning black after first export in parallaxer
-- [X]10. change sketch to load all images and just draw the ones based on offset and adjust make offset & adjust user-controlled.
-- [ ]11. find relationship between anaglyph preview disparity in stereo pairs and lenticular 
-- [X]12. fix image export in click event (goes out of bounds)
+- [X] 10. change sketch to load all images and just draw the ones based on offset and adjust make offset & adjust user-controlled.
+- [ ] 11. find relationship between anaglyph preview disparity in stereo pairs and lenticular 
+- [X] 12. fix image export in click event (goes out of bounds)
 
 ----------------------------------
 ####Resources
