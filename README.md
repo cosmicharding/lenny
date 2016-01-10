@@ -10,6 +10,7 @@ Is a nice guy.
 - [ ] 6. depth map?
 - [ ] 7. focusing stacking? 
 - [ ] 8. Anaglyph preview 
+- [ ] 9. Figure out why image exports are turning black after first export in parallaxer
 
 
 

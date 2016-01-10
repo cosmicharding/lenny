@@ -6,25 +6,6 @@ int FRAME_COUNT = 3;
 ImgStack imgStack; 
 int[] staged; 
 
-int centermouse;
-int croptopx;
-int croptopy;
-int cropwidth;
-
-String slicenum ="";
-String slicearray[] = {"data/slice", slicenum, ".tif"};
-String slice;
-float mouse;
-PImage[] crop = new PImage[FRAME_COUNT];
-int[] cropArray = new int[FRAME_COUNT];
-int cropx;
-float cropwidthLarge;
-int cropheightLarge;
-int cropwidthLargeInt;
-
-
-
-
 
 void setup() {
   size(displayWidth, displayHeight);
@@ -64,27 +45,23 @@ void draw() {
   fill(255);
   noStroke();
   rect(0,0,cropLeft, displayHeight); //Left Mask 
-  rect(cropRight, 0, displayWidth, displayHeight);  //Right mask
-
-  //cropx = cropLeft - (i * displacementToCenter/(FRAME_COUNT-1));
-  //cropx = cropx-(width-imgStack.width)/2;
-  //cropArray[i] = cropx;
-
-  
+  rect(cropRight, 0, displayWidth, displayHeight);  //Right mask  
 }
 
 
 //Exports fullres on click
 void mouseClicked() {
   float scale = imgStack.scale;
-  boolean stackLeansLeft = (mouseX < width/2);
 
   //Calculated scaled offset values 
-  int xOffset =  Math.round(mouseX-width/2 * scale);
+  int xOffset =  Math.round( (mouseX-width/2) * scale);
   int[] xLocs = new int[FRAME_COUNT]; 
+  println("xLocs: ");
   for(int i = 0; i < FRAME_COUNT; i++){
-    xLocs[i] = xOffset*i / (FRAME_COUNT-1); 
+    xLocs[i] = xOffset*i / (FRAME_COUNT-1);
+    print(xLocs[i] + ", "); 
   }
+  println();
   //Calculate export area 
   //export width is calculated based on the position of the last staged image
   int exportW = (imgStack.fullWidth - abs(xLocs[FRAME_COUNT-1]));
@@ -93,12 +70,14 @@ void mouseClicked() {
   PGraphics exportCanvas = createGraphics(exportW, imgStack.fullHeight);
   exportCanvas.beginDraw();  
   exportCanvas.imageMode(CENTER);
-  translate(exportCanvas.width/2, exportCanvas.height/2);
+  exportCanvas.translate(exportCanvas.width/2, exportCanvas.height/2);
   for(int i = 0; i < FRAME_COUNT; i++){
+    exportCanvas.clear();
     exportCanvas.background(255);
     exportCanvas.image(imgStack.getBig(staged[i]), xLocs[i], 0);
-    exportCanvas.save("export_" + i + ".jpg");
-    println("EXPORTED: export_" + i + ".jpg");
+    String sn = String.format("%03d", i);
+    exportCanvas.save("./exports/export_" + sn + ".jpg");
+    println("EXPORTED: export_" + sn + ".jpg");
   }
   exportCanvas.endDraw();
 
