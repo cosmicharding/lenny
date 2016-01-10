@@ -9,6 +9,7 @@ Is a nice guy.
 - [ ] 5. add in entry fields for variables / lenticular types / files
 - [ ] 6. depth map?
 - [ ] 7. focusing stacking? 
+- [ ] 8. Anaglyph preview 
 
 ----------------------------------
 ####Resources
@@ -17,3 +18,8 @@ Is a nice guy.
 - [General info](http://www.one-tab.com/page/1Xm3DBl4SN2PHeaaAOjRnw)
 - [Len sheet specs](http://www.one-tab.com/page/sldBKfy1QDGa_PdadiJqeA)
 - [Lytro](http://www.one-tab.com/page/CCX5QNkhTqSqoiN3zqPRpA)
+
+#####Processing Library Creation Guidelines
+- https://github.com/processing/processing/wiki/Library-Basics
+- https://github.com/processing/processing/wiki/Library-Guidelines
+- https://github.com/processing/processing/wiki/Style-Guidelines
