@@ -1,6 +1,7 @@
 int images = 18; //total images
 int frames = 2; //images to be used
-int adjust = 8; //adjustment of disparity between R and L images
+//new variable for # of output frames
+int adjust = 9; //adjustment of disparity between R and L images
 int offset = 0; //selection between different stereo pairs
 int skip = ((images-frames)/(frames-1))+1;
 
