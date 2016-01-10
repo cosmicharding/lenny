@@ -1,12 +1,7 @@
 
-int images = 18;
-int frames = 3;
-int skip = ((images-frames)/(frames-1))+1;
-String imgFile2 = "0";
-String img;
-PImage imgs[] = new PImage[frames];
-PImage imgsLarge[] = new PImage[frames];
-String imgFile[] = {"data/large/",imgFile2, ".jpg"};
+//USER INPUT VARS
+String IMAGES_FOLDER = "large"; 
+int FRAME_COUNT = 3;
 
 int centermouse;
 int croptopx;
@@ -18,17 +13,14 @@ String slicenum ="";
 String slicearray[] = {"data/slice", slicenum, ".tif"};
 String slice;
 float mouse;
-PImage[] crop = new PImage[frames];
-int[] cropArray = new int[frames];
+PImage[] crop = new PImage[FRAME_COUNT];
+int[] cropArray = new int[FRAME_COUNT];
 int cropx;
 float cropwidthLarge;
 int cropheightLarge;
 int cropwidthLargeInt;
 
 
-//USER INPUT VARS
-String IMAGES_FOLDER = "large"; 
-int FRAME_COUNT = 3;
 
 ImgStack imgStack; 
 int[] staged; 
@@ -46,39 +38,37 @@ void draw() {
   for (int i=0; i < FRAME_COUNT; i++){
     pushMatrix();
       translate(width/2, height/2);
-      int displacementToCenter = mouseX-width/2;
-      //xLoc = (mouseDisplacement * imgNum / spaces between images) + shift to center - image's center 
-      int xLoc = displacementToCenter*i / (FRAME_COUNT-1); // 
-      int opac = 255/(i+1); //why? 
+      int xOffset = mouseX-width/2;
+      int xLoc = xOffset*i / (FRAME_COUNT-1); // 
+      int opac = 255/(i+1);//Why not even opac for all? 
       tint(255, opac);  // Display at partial opacity
       image(imgStack.get(staged[i]), xLoc, 0);
     popMatrix();
-
-    if (displacementToCenter>0){
-      croptopx= mouseX - imgStack.get(staged[i]).width/2;
-      cropwidth = ((width/2)+imgStack.get(staged[i]).width/2)-croptopx;
-    }
-    if (displacementToCenter<=0){
-      croptopx = width/2-imgStack.get(staged[i]).width/2;
-      cropwidth = (mouseX+imgStack.get(staged[i]).width/2)-croptopx;
-    }
-
-    //Draw masks
-    tint(255,255);
-    fill(255);
-    noStroke();
-    rect(0,0,croptopx, displayHeight);  
-    rect(croptopx + cropwidth, 0, displayWidth-(croptopx + cropwidth), displayHeight);  
-
-    cropx = croptopx - (i * displacementToCenter/(FRAME_COUNT-1));
-    cropx = cropx-(width-imgStack.get(staged[i]).width)/2;
-    cropArray[i] = cropx;
   }
+
+  int cropLeft, cropWidth, cropRight; 
+  if (mouseX > width/2){
+    cropLeft = mouseX - imgStack.width/2;
+    cropRight = width/2+imgStack.width/2;
+    cropWidth = ((width/2)+imgStack.width/2)-cropLeft;
+  } else {
+    cropLeft = width/2-imgStack.width/2;
+    cropRight = mouseX+imgStack.width/2;
+    cropWidth = (mouseX+imgStack.width/2)-cropLeft;
+  }
+
+  drawMasks();
+
+  //cropx = cropLeft - (i * displacementToCenter/(FRAME_COUNT-1));
+  //cropx = cropx-(width-imgStack.width)/2;
+  //cropArray[i] = cropx;
+
   
 }
 
 
-// void mouseClicked() {
+void mouseClicked() {
+  //PGraphic export = 
 //   value=1;
 //   clear();
 //   delay(1000);
@@ -100,7 +90,7 @@ void draw() {
 //   crop[i]=imgsLarge[i].get(cropArray[i],croptopy,cropwidthLargeInt,cropheightLarge);
 //   crop[i].save(path);
 //   }
-// }
+}
 
 
 
@@ -134,4 +124,13 @@ int[] getActiveImages(int totalImages, int totalFrames){
   } else {
     throw new ArrayIndexOutOfBoundsException( "Unable to render " + totalFrames + " frames from image array of size " + totalImages);
   }
+}
+
+void drawMasks(){
+  //Draw masks
+  tint(255,255);
+  fill(255);
+  noStroke();
+  rect(0,0,cropLeft, displayHeight); //Left Mask 
+  rect(cropRight, 0, displayWidth, displayHeight);  //Right mask
 }

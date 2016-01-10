@@ -10,6 +10,9 @@ images for printing.
 ----------------------*/
 public class ImgStack {
 	int totalImgs; 
+	int width; //height of SMALL images
+	int height; //height of SMALL images
+
 	ArrayList<PImage> smallImgs; 
 	ArrayList<PImage> fullResImgs; 
 	String inputFolderPath = "";
@@ -115,9 +118,11 @@ public class ImgStack {
 		smallImgs = new ArrayList<PImage>();
 		for(PImage img : fullResImgs){
 			PImage resizedImg = img.copy(); 
-			resizedImg.resize(0, height);
+			resizedImg.resize(0, displayHeight);
 			smallImgs.add(resizedImg);
 		}
+		this.width = smallImgs.get(0).width;
+		this.height = smallImgs.get(0).height;
 		println("Low res previews successfully generated. ");
 	}
 }

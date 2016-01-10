@@ -17,6 +17,7 @@ To do:
 - [ ] Helper functions for getting first / last images
 - [ ] quick preview
 - [X] Throw exception for out of bound get() requests
+- [ ] Check for size consistency across images
 
 
  
