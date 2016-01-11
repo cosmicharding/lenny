@@ -52,15 +52,27 @@ void draw() {
 //Exports fullres on click
 void mouseClicked() {
   float scale = imgStack.scale;
+  println("scale: " + scale);
 
   //Calculated scaled offset values 
   int xOffset =  Math.round( (mouseX-width/2) * scale);
-  int[] xLocs = new int[FRAME_COUNT]; 
-  println("xLocs: ");
+  int[] xLocs = new int[FRAME_COUNT];
+  int[] xLocsSmall = new int[FRAME_COUNT]; 
+
   for(int i = 0; i < FRAME_COUNT; i++){
     xLocs[i] = xOffset*i / (FRAME_COUNT-1);
-    print(xLocs[i] + ", "); 
+    xLocsSmall[i] = (mouseX-width/2)*i / (FRAME_COUNT-1);
   }
+
+  println("xLocs BIG: ");
+  for(int i : xLocs ){
+    print(i + ", ");
+  }
+  println("\nxLocs SMALL: ");
+  for(int i : xLocsSmall ){
+    print(i + ", ");
+  }
+
   println();
   //Calculate export area 
   //export width is calculated based on the position of the last staged image
@@ -69,8 +81,9 @@ void mouseClicked() {
 
   PGraphics exportCanvas = createGraphics(exportW, imgStack.fullHeight);
   exportCanvas.beginDraw();  
-  exportCanvas.imageMode(CENTER);
-  exportCanvas.translate(exportCanvas.width/2, exportCanvas.height/2);
+  exportCanvas.imageMode(CORNER);
+  //exportCanvas.translate(exportCanvas.width/2, exportCanvas.height/2);
+  exportCanvas.translate(-xLocs[FRAME_COUNT-1], 0);
   for(int i = 0; i < FRAME_COUNT; i++){
     exportCanvas.clear();
     exportCanvas.background(255);
