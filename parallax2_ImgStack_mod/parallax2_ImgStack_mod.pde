@@ -53,7 +53,7 @@ void draw() {
 void mouseClicked() {
   float scale = imgStack.scale;
 
-  //Calculated scaled offset values 
+  //Calculate scaled offset values 
   int xOffset =  Math.round( (mouseX-width/2) * scale);
   int[] xLocs = new int[FRAME_COUNT]; 
   println("xLocs: ");
