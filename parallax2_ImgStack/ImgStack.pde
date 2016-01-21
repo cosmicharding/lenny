@@ -129,7 +129,7 @@ public class ImgStack {
 		}
 		this.width = smallImgs.get(0).width;
 		this.height = smallImgs.get(0).height;
-		this.scale = fullHeight / height;
+		this.scale = this.fullHeight * 1.0 / this.height;
 		println("Low res previews successfully generated. ");
 	}
 }
