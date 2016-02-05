@@ -1,6 +1,6 @@
 
 int images = 18;
-int frames = 3;
+int frames = 18;
 int skip = ((images-frames)/(frames-1))+1;
 String imgFile2 = "0";
 String img;
@@ -58,6 +58,7 @@ void draw() {
       cropwidth = (mouseX+imgs[i].width/2)-croptopx;
     }
     fill(255,255,255);
+    noStroke();
     rect(0,0,croptopx, displayHeight);  
     rect(croptopx + cropwidth, 0, displayWidth-(croptopx + cropwidth), displayHeight);  
 

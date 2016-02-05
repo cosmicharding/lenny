@@ -1,7 +1,7 @@
 
 //USER INPUT VARS
 String IMAGES_FOLDER = "large"; 
-int FRAME_COUNT = 3;
+int FRAME_COUNT = 6; // 17 for 18 images FIX
 
 ImgStack imgStack; 
 int[] staged; 
@@ -113,11 +113,9 @@ int[] getStagedImages(int totalImages, int totalFrames){
 
   if(totalFrames > 1 && totalFrames <= totalImages){ 
     int[] stagedImgs = new int[totalFrames]; 
-    stagedImgs[0] = 0; 
-    stagedImgs[totalFrames-1] = totalImages - 1; 
-    int skip = (totalImages - 2) / (totalFrames - 1); //Rounded-down number of images to skip
-    for(int i = 0; i < totalFrames - 2; i++){
-      stagedImgs[i+1] = (i + 1) * skip; 
+    int skip = ((totalImages-totalFrames)/(totalFrames-1))+1; //Rounded-down number of images to skip
+    for(int i = 0; i < totalFrames; i++){
+      stagedImgs[i] = i * skip; 
     }
     println("Staged images: ");
     for(int x : stagedImgs){
