@@ -2,17 +2,16 @@ PImage imgMask;
 PImage img;
 PImage masked;
 String imgFile2 = "0";
-String imgFile[] = {"slice",imgFile2, ".tif"};
+String imgFile[] = {"data/large/slice",imgFile2, ".tif"};
 String file;
-color[] colorArray;
 
-int frames = 5;
+int frames = 18;
 
 
 void setup() {
   size(displayWidth,displayHeight);
   noSmooth();
-  img = loadImage("slice1.tif");
+  img = loadImage("data/large/slice1.tif");
   masked = createImage(img.width, img.height, RGB);
   
 }
